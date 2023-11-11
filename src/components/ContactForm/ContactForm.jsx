@@ -1,9 +1,10 @@
 import { Formik, Field } from "formik";
 import { StyledForm, ButtomStyle } from "./StyledForm";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "Redux/contactsSlice";
 import { nanoid } from "@reduxjs/toolkit";
+import { getContacts } from "Redux/selectors";
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -12,6 +13,22 @@ const schema = yup.object().shape({
 
 export const ContactForm = () => {
     const dispatch = useDispatch();
+        // const contacts = useSelector(getContacts);
+
+    const handleSubmit = (values) => {
+                
+        // const isExist = contacts.some(contact => contact.name === values.name);
+        
+        // if (isExist) {
+        //     alert(`${values.name} is already in contacts.`);
+        //     return
+        // }
+        
+        dispatch(addContact({ ...values, id: nanoid() }));
+        // resetForm();
+        console.log(values)
+    };
+    
     
     return (
         <Formik
@@ -20,10 +37,7 @@ export const ContactForm = () => {
                 number: '',
                 id: '',
             }}
-            onSubmit={(values, { resetForm }) => {
-                dispatch(addContact({ ...values, id: nanoid() }));
-                resetForm();
-            }}
+            onSubmit={handleSubmit}
             validationSchema={schema}
         >
             <StyledForm>
