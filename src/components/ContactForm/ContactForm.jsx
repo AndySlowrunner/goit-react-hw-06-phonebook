@@ -25,9 +25,7 @@ export const ContactForm = () => {
         
         dispatch(addContact({ ...values, id: nanoid() }));
         resetForm();
-        console.log(values)
     };
-    
     
     return (
         <Formik
