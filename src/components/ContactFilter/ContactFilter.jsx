@@ -8,7 +8,6 @@ export const Filter = () => {
     const value = useSelector(getFilter);
     const handleChange = (e) => {
         dispatch(setFilter(e.target.value));
-
     }
 
     return (
